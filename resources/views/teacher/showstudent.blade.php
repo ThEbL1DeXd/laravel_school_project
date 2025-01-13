@@ -1,4 +1,4 @@
-@extends('layouts.headerStudent')
+@extends('layouts.headerTeacher')
 @section('content')
     <h3 class="text-center p-5">{{$student->name}}</h3>
     <table class="table table-striped w-50 m-auto">

@@ -1,7 +1,7 @@
 @extends('layouts.headerTeacher')
 @section('content')
     <div class="p-4"></div>
-@foreach($question as $val)
+@foreach($quiz->question as $val)
     <div class="table-responsive mb-4 w-75 m-auto">
         <table class="table table-bordered table-striped">
             <thead>

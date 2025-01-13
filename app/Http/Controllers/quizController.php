@@ -122,10 +122,10 @@ class quizController extends Controller
     }
 
     // Affiche toutes les questions disponibles.
-    public function showquizquestion()
+    public function showquizquestion($id)
     {
-        $question = question::all(); // Récupère toutes les questions.
-        return view('teacher.showquestion', compact('question'));
+        $quiz = quiz::find($id); // Récupère les questions.
+        return view('teacher.showquestion', compact('quiz'));
     }
 
     // Déconnecte l'enseignant et vide la session.

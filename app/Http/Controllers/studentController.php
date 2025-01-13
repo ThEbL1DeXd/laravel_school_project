@@ -43,6 +43,11 @@ class studentController extends Controller
     // Traite les données pour connecter un étudiant.
     public function loginStudenttrt(Request $request)
     {
+        $request->validate([
+            'email' => 'required|string|email|max:255|exists:students,email', // Email obligatoire, unique dans la table `students`.
+            'password' => 'required|string|min:8', // Mot de passe obligatoire, minimum 8 caractères.
+        ]);
+
         $student = student::where('email', $request->email)->first(); // Cherche un étudiant par email.
         if ($student) {
             if (Hash::check($request->password, $student->password)) { // Vérifie si le mot de passe est correct.
@@ -51,7 +56,7 @@ class studentController extends Controller
             }
         }
         // Retourne un message d'erreur si l'étudiant n'est pas trouvé ou si le mot de passe est incorrect.
-        return redirect()->intended('login')->withErrors(['message' => 'User not found. Please try again.']);
+        return back()->withErrors(['message' => 'User not found. Please try again.']);
     }
 
     // Affiche la page d'accueil des quiz pour les étudiants.
@@ -89,7 +94,7 @@ class studentController extends Controller
         // Vérifie si une note pour ce quiz a déjà été enregistrée pour cet étudiant.
         $serch = quiz_student::where("quiz_id", $request->quiz_id)->where("student_id", (int)Session("id"))->first();
 
-        if (count($serch) > 0) {
+        if ($serch) {
             // Met à jour la note existante si elle est déjà enregistrée.
             $quiz_student = quiz_student::find($serch->id);
             $quiz_student->note = $nbrques . "/" . $quiz->question->count();

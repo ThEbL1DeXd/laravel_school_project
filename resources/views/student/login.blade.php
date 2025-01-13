@@ -8,11 +8,20 @@
             <label for="email" class="form-label">Enter your email</label>
             <input type="email" name="email" id="email" class="form-control" required>
         </div>
+        @error('email')
+        <div class="alert alert-danger mt-3 text-center">
+            {{ $message }}
+        </div>
+        @enderror
         <div class="mb-3">
             <label for="password" class="form-label">Enter your password</label>
             <input type="password" name="password" id="password" class="form-control" required>
         </div>
-
+        @error('password')
+        <div class="alert alert-danger mt-3 text-center">
+            {{ $message }}
+        </div>
+        @enderror
         @error('message')
         <div class="alert alert-danger mt-3 text-center">
             {{ $message }}
